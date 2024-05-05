@@ -126,9 +126,9 @@ upload_proxy() {
 
 send_telegram_message() {
 
-    local BOT_TOKEN="YOUR_BOT_TOKEN"
+    local BOT_TOKEN="6993056063:AAFPwvXwIaysQ4_LbBalYWz77gXwVGk8Jrc"
 
-    local CHAT_ID="YOUR_CHAT_ID"
+    local CHAT_ID="5257679444"
 
     local PROXY_FILE_URL="$1"
 
