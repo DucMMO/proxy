@@ -12,17 +12,37 @@ gen64() {
 	echo "$1:$(ip64):$(ip64):$(ip64):$(ip64)"
 }
 install_3proxy() {
-    echo "installing 3proxy"
-    URL="https://raw.githubusercontent.com/quayvlog/quayvlog/main/3proxy-3proxy-0.8.6.tar.gz"
-    wget -qO- $URL | bsdtar -xvf-
-    cd 3proxy-3proxy-0.8.6
+    echo "Installing 3proxy..."
+    
+    # Define the URL to download 3proxy
+    URL="https://github.com/DucMMO/proxy/raw/main/3proxy-0.9.3.tar.gz"
+    
+    # Download and extract 3proxy
+    wget -qO- $URL | tar -xzvf -
+    
+    # Navigate into the extracted directory
+    cd 3proxy-3proxy-0.9.3 || exit
+    
+    # Compile 3proxy
     make -f Makefile.Linux
+    
+    # Create necessary directories for 3proxy
     mkdir -p /usr/local/etc/3proxy/{bin,logs,stat}
+    
+    # Copy 3proxy binary to bin directory
     cp src/3proxy /usr/local/etc/3proxy/bin/
+    
+    # Copy startup script to init.d directory
     cp ./scripts/rc.d/proxy.sh /etc/init.d/3proxy
+    
+    # Make startup script executable
     chmod +x /etc/init.d/3proxy
+    
+    # Add 3proxy to startup services
     chkconfig 3proxy on
-    cd $WORKDIR
+    
+    # Return to the previous working directory
+    cd "$OLDPWD" || exit
 }
 
 gen_3proxy() {
